@@ -90,7 +90,7 @@ brew install stow
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/dots.git ~/.dots
+   git clone https://github.com/arthur404dev/dots.git ~/.dots
    cd ~/.dots
    ```
 
