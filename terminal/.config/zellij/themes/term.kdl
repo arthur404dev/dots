@@ -1,0 +1,167 @@
+themes {
+    // Theme name remains "term"
+    term {
+        // --- text_unselected ---
+        // Original base: 205 214 244 (Light Blue/Grey) -> Map to White (7) or Bright White (15) for main text
+        // Original background: 24 24 37 (Dark Blue/Grey) -> Map to Black (0) or Bright Black (8) for main background
+        // Emphasis colors mapped to bright ANSI colors for highlights
+        text_unselected {
+            base 7        // White (standard text color, dynamic)
+            background 0  // Black (standard background color, dynamic)
+            emphasis_0 11 // Bright Yellow (for orange/peach look, dynamic)
+            emphasis_1 14 // Bright Cyan (for light cyan/teal look, dynamic)
+            emphasis_2 10 // Bright Green (for light green look, dynamic)
+            emphasis_3 13 // Bright Magenta (for pink/lavender look, dynamic)
+        }
+
+        // --- text_selected ---
+        // Base is same as unselected. Background changes to highlight selection.
+        // Original background: 88 91 112 (Medium Grey/Blue) -> Map to Bright Black (8) for a subtle selection
+        text_selected {
+            base 4
+            background 0  // Bright Black (dark grey for selection, dynamic)
+            emphasis_0 11
+            emphasis_1 14
+            emphasis_2 10
+            emphasis_3 13
+        }
+
+        // --- ribbon_selected ---
+        // Ribbon base: 24 24 37 (Dark Blue/Grey) -> Black (0)
+        // Ribbon background: 166 227 161 (Light Green) -> Bright Green (10) for selected ribbon highlight
+        ribbon_selected {
+            base 5         // Black (dynamic)
+            background 0  // Bright Green (dynamic)
+            emphasis_0 9   // Bright Red (for pastel red/pink look, dynamic)
+            emphasis_1 11  // Bright Yellow (for orange/peach look, dynamic)
+            emphasis_2 13  // Bright Magenta (for pink/lavender look, dynamic)
+            emphasis_3 12  // Bright Blue (for light blue look, dynamic)
+        }
+
+        // --- ribbon_unselected ---
+        // Ribbon base: 24 24 37 (Dark Blue/Grey) -> Black (0)
+        // Ribbon background: 205 214 244 (Light Blue/Grey) -> White (7) or Bright White (15) for unselected background
+        ribbon_unselected {
+            base 4         // Black (dynamic)
+            background 0   // White (dynamic) - or 15 for bright white
+            emphasis_0 9   // Bright Red (dynamic)
+            emphasis_1 7   // White (dynamic) - matching background for blending
+            emphasis_2 12  // Bright Blue (dynamic)
+            emphasis_3 13  // Bright Magenta (dynamic)
+        }
+
+        // --- table_title ---
+        // Base: 166 227 161 (Light Green) -> Bright Green (10)
+        // Background: 0 (Black)
+        table_title {
+            base 4        // Bright Green (dynamic)
+            background 0   // Black (dynamic)
+            emphasis_0 11
+            emphasis_1 14
+            emphasis_2 10
+            emphasis_3 13
+        }
+
+        // --- table_cell_selected ---
+        // Base: 205 214 244 -> White (7)
+        // Background: 88 91 112 -> Bright Black (8)
+        table_cell_selected {
+            base 0
+            background 4
+            emphasis_0 242
+            emphasis_1 240
+            emphasis_2 237
+            emphasis_3 233
+        }
+
+        // --- table_cell_unselected ---
+        // Base: 205 214 244 -> White (7)
+        // Background: 24 24 37 -> Black (0)
+        table_cell_unselected {
+            base 7
+            background 0
+            emphasis_0 11
+            emphasis_1 14
+            emphasis_2 10
+            emphasis_3 13
+        }
+
+        // --- list_selected ---
+        list_selected {
+            base 0
+            background 4
+            emphasis_0 11
+            emphasis_1 14
+            emphasis_2 10
+            emphasis_3 13
+        }
+
+        // --- list_unselected ---
+        list_unselected {
+            base 7
+            background 0
+            emphasis_0 11
+            emphasis_1 14
+            emphasis_2 10
+            emphasis_3 13
+        }
+
+        // --- frame_selected ---
+        // Base: 166 227 161 -> Bright Green (10)
+        frame_selected {
+            base 4        // Bright Green (dynamic)
+            background 0
+            emphasis_0 11
+            emphasis_1 14
+            emphasis_2 13
+            emphasis_3 0
+        }
+
+        // --- frame_highlight ---
+        // Base: 250 179 135 -> Bright Yellow (11)
+        frame_highlight {
+            base 3        // Bright Yellow (dynamic)
+            background 0
+            emphasis_0 13
+            emphasis_1 11
+            emphasis_2 11
+            emphasis_3 11
+        }
+
+        // --- exit_code_success ---
+        // Base: 166 227 161 -> Bright Green (10)
+        exit_code_success {
+            base 2        // Bright Green (dynamic)
+            background 0
+            emphasis_0 14
+            emphasis_1 8   // Bright Black (for dark emphasis, dynamic)
+            emphasis_2 13
+            emphasis_3 12
+        }
+
+        // --- exit_code_error ---
+        // Base: 243 139 168 -> Bright Red (9)
+        exit_code_error {
+            base 1         // Bright Red (dynamic)
+            background 0
+            emphasis_0 11  // Bright Yellow (for light yellow look, dynamic)
+            emphasis_1 0
+            emphasis_2 0
+            emphasis_3 0
+        }
+
+        // --- multiplayer_user_colors ---
+        multiplayer_user_colors {
+            player_1 13 // Bright Magenta (dynamic)
+            player_2 12 // Bright Blue (dynamic)
+            player_3 0  // Black (dynamic)
+            player_4 11 // Bright Yellow (dynamic)
+            player_5 14 // Bright Cyan (dynamic)
+            player_6 0
+            player_7 9  // Bright Red (dynamic)
+            player_8 0
+            player_9 0
+            player_10 0
+        }
+    }
+}

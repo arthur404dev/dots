@@ -1,0 +1,71 @@
+layout {
+    default_tab_template {
+        pane size=2 borderless=true {
+            plugin location="zjstatus" {
+                format_left   "{mode} #[fg=blue]{session}"
+                format_center "{tabs}"
+                format_right  ""
+                format_space  ""
+
+                pipe_zjstatus_hints_format "{output}"
+
+                border_enabled  "false"
+                border_char     "─"
+                border_format   "#[fg=black]{char}"
+                border_position "top"
+
+                hide_frame_for_single_pane "true"
+
+                mode_locked      "#[fg=blue,bold] 󰄯 "
+                mode_normal      "#[fg=magenta,bold] 󰪥 "
+                mode_resize      "#[fg=red,bold] 󰿡 "
+                mode_pane        "#[fg=cyan,bold] 󰪡 "
+                mode_move        "#[fg=red,bold] 󰳟 "
+                mode_tab         "#[fg=magenta,bold] 󰻂 "
+                mode_scroll      "#[fg=magenta,bold] 󰬦 "
+                mode_search      "#[fg=yellow,bold]  "
+                mode_entersearch "#[fg=yellow,bold]  "
+                mode_renametab   "#[fg=blue,bold] 󰛿 "
+                mode_renamepane  "#[fg=cyan,bold] 󰛿 "
+                mode_session     "#[fg=green,bold] 󱥸 "
+                mode_tmux        "#[fg=magenta,bold] 󰰥 "
+
+                tab_active              "#[fg=magenta,bold] {index} {name} "
+                tab_active_fullscreen   "#[fg=magenta,bold] {fullscreen_indicator} {index} {name} "
+                tab_active_sync         "#[fg=magenta,bold] {sync_indicator} {index} {name} "
+
+                tab_normal              "#[fg=white,bold] {index} {name} "
+                tab_normal_fullscreen   "#[fg=white,bold] {fullscreen_indicator} {index} {name} "
+                tab_normal_sync         "#[fg=white,bold] {sync_indicator} {index} {name} "
+
+                tab_separator " "
+
+                tab_sync_indicator       "󰓦"
+                tab_fullscreen_indicator "󰊓"
+                tab_floating_indicator   "⬚"
+
+                tab_rename              "#[bg=blue,bold] {index} {name} {floating_indicator} "
+
+                tab_display_count         "9"
+                tab_truncate_start_format "#[fg=yellow]  +{count}  "
+                tab_truncate_end_format   "#[fg=yellow]   +{count} "
+            }
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zjstatus" {
+                format_left   ""
+                format_center ""
+                format_right  "{pipe_zjstatus_hints}"
+                format_space  ""
+
+                pipe_zjstatus_hints_format "{output}"
+
+                border_enabled  "true"
+                border_char     "─"
+                border_format   "#[fg=black]{char}"
+                border_position "top"
+              }
+        }
+    }
+}
