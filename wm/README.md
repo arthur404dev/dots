@@ -58,6 +58,16 @@ Logout menu for Wayland:
 - **`layout`**: Button layout configuration
 - **`style.css`**: Menu styling and animations
 
+### Quickshell (`.config/quickshell/`)
+Modern Qt-based shell for Wayland and X11:
+- **`ii/`**: Main shell configuration directory
+  - **`modules/`**: Modular components (sidebars, widgets, toggles)
+  - **`services/`**: System integration services (audio, bluetooth, notifications)
+  - **`scripts/`**: Helper scripts for AI, colors, and system integration
+- **`shell.qml`**: Main shell entry point
+- **`settings.qml`**: Configuration and preferences
+- **`translations/`**: Multi-language support
+
 ## 🚀 Key Features
 
 ### Hyprland Features
