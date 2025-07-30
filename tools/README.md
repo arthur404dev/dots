@@ -75,6 +75,27 @@ Blue light filter for eye strain reduction:
   - Color temperature ranges
   - Location-based adjustments
 
+### Nemo (`.config/nemo/`)
+File manager configuration:
+- **`bookmark-metadata`**: File manager bookmarks and metadata
+  - Quick access locations
+  - Custom folder shortcuts
+  - Navigation preferences
+
+### PulseAudio Control (`.config/`)
+Audio system configuration:
+- **`pavucontrol.ini`**: PulseAudio volume control settings
+  - Audio device preferences
+  - Volume control behavior
+  - Input/output device management
+
+### Dolphin (`.config/`)
+KDE file manager configuration:
+- **`dolphinrc`**: Dolphin file manager settings
+  - View preferences and layouts
+  - Navigation and toolbar customization
+  - File operation preferences
+
 ## 🚀 Key Features
 
 ### Git Workflow Enhancement
