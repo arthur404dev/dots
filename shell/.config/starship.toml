@@ -1,0 +1,95 @@
+#Location: ~/.config/starship.toml
+#What_is_starship: https://starship.rs/
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+command_timeout = 2000
+
+format = """$env_var$os$username$hostname$kubernetes$directory$git_branch$git_status
+$character
+"""
+right_format = """$all"""
+
+[character]
+success_symbol = "╰─▶"
+error_symbol = "╰─▶"
+# ╭╴ ╰─
+
+[env_var]
+symbol = "╭╴"
+variable = 'SHELL'
+format = "$symbol"
+disabled = false
+
+[os]
+format = '[$symbol](bold white) '
+disabled = false
+
+[os.symbols]
+Windows = ' '
+Arch = '󰣇'
+Ubuntu = ''
+Macos = '󰀵'
+Unknown = '󰠥'
+
+# Shows the username
+[username]
+style_user = 'cyan bold'
+style_root = 'blue bold'
+format = '[]($style) [$user]($style) ' # 2883ff
+disabled = false
+show_always = true
+
+# Shows the hostname
+[hostname]
+ssh_only = false
+format = '[]($style) [$hostname]($style) '
+style = 'bold purple'
+disabled = false
+
+# Shows current directory
+[directory]
+truncation_length = 0
+truncation_symbol = '…/'
+home_symbol = '~'
+# read_only_style = '197'
+read_only = '  '
+format = '[]($style) [\( $path \)]($style)[$read_only]($read_only_style) '
+style = 'blue bold'                                                         # yellow bold
+
+
+# Shows current git branch
+[git_branch]
+# symbol = ' '
+symbol = ' '
+format = '[]($style) [$symbol\[$branch\]]($style) '
+# truncation_length = 0
+truncation_symbol = '…/'
+style = 'bold green'
+
+# Shows current git status
+[git_status]
+disabled = true
+format = '[$all_status$ahead_behind]($style) '
+style = "bold cyan"
+conflicted = "  "
+untracked = "  "
+ahead = " ⇡${count}"
+diverged = " ⇕⇡${ahead_count}⇣${behind_count}"
+behind = " ⇣${count}"
+stashed = " "
+modified = '[  \($count\)](yellow)'
+staged = '[ 󱅃 \($count\)](green)'
+renamed = "  "
+deleted = '[  \($count\)](red)'
+
+# Shows kubernetes context and namespace
+[kubernetes]
+format = 'via [󱃾 $context\($namespace\)](bold red) '
+disabled = false
+
+# Shows localip for ssh-connections
+[localip]
+ssh_only = true
+format = '[\( $localipv4\)](bold yellow) '
+disabled = false
