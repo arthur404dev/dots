@@ -9,22 +9,32 @@ These dotfiles embrace the Unix philosophy of doing one thing well. Each configu
 ## 📦 What's Inside
 
 ### 🐚 Shell (`shell/`)
+Modern shell configurations with custom prompts and productivity enhancements.
 - **Fish Shell**: Modern shell with intelligent autocompletions
 - **Zsh**: Powerful shell with custom configurations
 - **Starship**: Cross-shell prompt with git integration and performance metrics
 - **Bash**: Fallback shell configuration
 
+📖 [**Detailed Shell Documentation →**](shell/README.md)
+
 ### 💻 Terminal (`terminal/`)
+Terminal emulator configurations optimized for development workflows.
 - **Kitty**: GPU-accelerated terminal with ligature support
 - **Foot**: Lightweight Wayland terminal
 - **Zellij**: Modern terminal multiplexer with layouts and plugins
 - **Tmux**: Traditional terminal multiplexer for session management
 
+📖 [**Detailed Terminal Documentation →**](terminal/README.md)
+
 ### ✏️ Editor (`editor/`)
+Modern text editor configurations with LSP integration and productivity features.
 - **Neovim**: Modern Vim with LSP, treesitter, and plugin ecosystem
 - **Micro**: Simple, intuitive terminal-based text editor
 
+📖 [**Detailed Editor Documentation →**](editor/README.md)
+
 ### 🪟 Window Manager (`wm/`)
+Comprehensive window manager setups for both X11 and Wayland environments.
 - **Hyprland**: Dynamic tiling Wayland compositor
 - **BSPWM**: Binary space partitioning window manager
 - **Waybar**: Highly customizable Wayland bar
@@ -35,7 +45,10 @@ These dotfiles embrace the Unix philosophy of doing one thing well. Each configu
 - **Swaylock**: Screen locker for Wayland
 - **Wlogout**: Logout menu for Wayland
 
+📖 [**Detailed Window Manager Documentation →**](wm/README.md)
+
 ### 🛠️ Tools (`tools/`)
+Essential command-line tools for development, system management, and productivity.
 - **Git**: Version control with aliases and configurations
 - **Lazygit**: Terminal UI for git commands
 - **Ranger**: Console file manager with VI key bindings
@@ -47,27 +60,44 @@ These dotfiles embrace the Unix philosophy of doing one thing well. Each configu
 - **Matugen**: Material You color generation tool
 - **Redshift**: Blue light filter for eye strain reduction
 
+📖 [**Detailed Tools Documentation →**](tools/README.md)
+
 ### 🎨 Theme (`theme/`)
+Comprehensive theming system for consistent visual appearance across all applications.
 - **GTK 3/4**: Consistent theming across GTK applications
 - **Qt5/Qt6**: Qt application theming
 - **Kvantum**: SVG-based theme engine for Qt applications
 
+📖 [**Detailed Theme Documentation →**](theme/README.md)
+
 ### 🎵 Media (`media/`)
+Media player configuration and curated wallpaper collection for multimedia experience.
 - **MPV**: Minimalist media player with extensive customization
 - **Wallpapers**: Curated collection of beautiful desktop wallpapers
 
+📖 [**Detailed Media Documentation →**](media/README.md)
+
 ### 🤖 AI (`ai/`)
+AI-powered development tools and assistants for enhanced productivity.
 - **OpenCode**: Configuration for the AI-powered coding assistant
 - **Claude**: Settings and preferences for Claude AI interactions
 - **AI Tools**: Configurations for modern AI development workflow
 
+📖 [**Detailed AI Documentation →**](ai/README.md)
+
 ### 📱 Apps (`apps/`)
+Performance and feature flags for browsers and applications.
 - **Browser Flags**: Performance and feature flags for Chrome, Thorium, and VSCode
 - **Application Optimizations**: Custom flags for better performance and functionality
 
+📖 [**Detailed Apps Documentation →**](apps/README.md)
+
 ### ⚙️ System (`system/`)
+System-wide integration configurations for desktop portals and application sandboxing.
 - **XDG Desktop Portal**: Desktop integration for sandboxed applications
 - **System Integration**: Configurations for seamless desktop experience
+
+📖 [**Detailed System Documentation →**](system/README.md)
 
 ## 🚀 Quick Start
 
