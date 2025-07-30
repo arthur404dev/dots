@@ -44,6 +44,7 @@ Comprehensive window manager setups for both X11 and Wayland environments.
 - **Polybar**: Fast and easy-to-use status bar
 - **Swaylock**: Screen locker for Wayland
 - **Wlogout**: Logout menu for Wayland
+- **Quickshell**: Modern Qt-based shell with modular components
 
 📖 [**Detailed Window Manager Documentation →**](wm/README.md)
 
@@ -95,6 +96,9 @@ Performance and feature flags for browsers and applications.
 ### ⚙️ System (`system/`)
 System-wide integration configurations for desktop portals and application sandboxing.
 - **XDG Desktop Portal**: Desktop integration for sandboxed applications
+- **GoXLR Utility**: Audio interface control and configuration
+- **LACT**: Linux AMDGPU Control Tool for GPU management
+- **TuxClocker**: GPU overclocking and monitoring tool
 - **System Integration**: Configurations for seamless desktop experience
 
 📖 [**Detailed System Documentation →**](system/README.md)
