@@ -42,6 +42,13 @@ Traditional but powerful terminal multiplexer:
   - Session management tools
   - Vim-like navigation
 
+### Konsole (`.config/`)
+KDE's terminal emulator configuration:
+- **`konsolerc`**: Konsole terminal settings
+  - Profile management
+  - Appearance and behavior
+  - Integration with KDE desktop
+
 ## 🚀 Key Features
 
 ### Kitty Features
