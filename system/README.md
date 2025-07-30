@@ -19,6 +19,30 @@ KDE-specific desktop portal configuration:
   - Integration with KDE services
   - Plasma-specific features
 
+### GoXLR Utility (`.config/goxlr-utility/`)
+Audio interface control and configuration:
+- **`settings.json`**: GoXLR device settings and profiles
+  - Mixer configurations
+  - Audio routing settings
+  - Button mappings and macros
+  - Voice effects and processing
+
+### LACT (`.config/lact/`)
+Linux AMDGPU Control Tool for GPU management:
+- **`ui.yaml`**: LACT interface configuration
+  - GPU monitoring settings
+  - Fan curve configurations
+  - Power management profiles
+  - Temperature and performance monitoring
+
+### TuxClocker (`.config/`)
+GPU overclocking and monitoring tool:
+- **`tuxclocker.conf`**: TuxClocker configuration
+  - GPU overclocking profiles
+  - Fan control settings
+  - Monitoring preferences
+  - Safety limits and warnings
+
 ## 🚀 Key Features
 
 ### Desktop Portal Services
