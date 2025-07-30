@@ -53,3 +53,6 @@
 --ignore=\.vscode
 --ignore=\.idea
 --ignore=.*\.sublime-.*
+
+# Documentation and planning
+--ignore=docs
