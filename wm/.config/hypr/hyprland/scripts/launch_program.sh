@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# Enhanced program launcher for Hyprland
+# Enhanced program launcher for Hyprland with composition support
 # Usage: launch_program.sh <program_type> [additional_args...]
 # Example: launch_program.sh terminal --additional-args
+# Composition: launch_program.sh terminal-multiplexer
 
 PROGRAM_TYPE="$1"
 shift  # Remove program type from arguments, leaving additional args
@@ -14,6 +15,30 @@ FALLBACK_SCRIPT="$HOME/.config/hypr/hyprland/scripts/launch_first_available.sh"
 # Function to log messages
 log_message() {
     echo "[launch_program] $1" >&2
+}
+
+# Function to read program config
+read_program_config() {
+    local program_type="$1"
+    local config_file="$PROGRAMS_DIR/$program_type"
+    
+    if [[ -f "$config_file" ]]; then
+        cat "$config_file" | head -n1 | xargs
+    else
+        echo ""
+    fi
+}
+
+# Function to check if program exists
+program_exists() {
+    local program_name="$1"
+    
+    # Handle tilde expansion for paths starting with ~
+    if [[ "$program_name" == ~* ]]; then
+        program_name="${program_name/#\~/$HOME}"
+    fi
+    
+    command -v "$program_name" >/dev/null 2>&1 || [[ -x "$program_name" ]]
 }
 
 # Function to execute command with proper handling
@@ -30,6 +55,84 @@ execute_command() {
     eval "$cmd" &
 }
 
+# Function to compose programs (e.g., terminal-multiplexer)
+compose_programs() {
+    local composition_type="$1"
+    local additional_args="$2"
+    
+    case "$composition_type" in
+        "terminal-multiplexer")
+            local terminal_cmd=$(read_program_config "terminal")
+            local multiplexer_cmd=$(read_program_config "multiplexer")
+            
+            if [[ -n "$terminal_cmd" && -n "$multiplexer_cmd" ]]; then
+                # Extract terminal program name for validation
+                local terminal_name=$(echo "$terminal_cmd" | awk '{print $1}')
+                local multiplexer_name=$(echo "$multiplexer_cmd" | awk '{print $1}')
+                
+                if program_exists "$terminal_name" && program_exists "$multiplexer_name"; then
+                    # Use fish shell to preserve theme and environment
+                    local composed_cmd="$terminal_cmd -e fish -c \"$multiplexer_cmd\""
+                    execute_command "$composed_cmd" "$additional_args"
+                    return 0
+                else
+                    log_message "Warning: Terminal ($terminal_name) or multiplexer ($multiplexer_name) not found"
+                fi
+            else
+                log_message "Warning: Missing terminal or multiplexer configuration"
+            fi
+            
+            # Fallback to hardcoded composition
+            log_message "Falling back to hardcoded terminal-multiplexer"
+            execute_command "kitty -1 -e fish -c \"zellij\"" "$additional_args"
+            return 0
+            ;;
+        "terminal-file-manager-tui")
+            local terminal_cmd=$(read_program_config "terminal")
+            local file_manager_tui_cmd=$(read_program_config "file-manager-tui")
+            
+            if [[ -n "$terminal_cmd" && -n "$file_manager_tui_cmd" ]]; then
+                local terminal_name=$(echo "$terminal_cmd" | awk '{print $1}')
+                local file_manager_name=$(echo "$file_manager_tui_cmd" | awk '{print $1}')
+                
+                if program_exists "$terminal_name" && program_exists "$file_manager_name"; then
+                    local composed_cmd="$terminal_cmd -e fish -c \"$file_manager_tui_cmd\""
+                    execute_command "$composed_cmd" "$additional_args"
+                    return 0
+                fi
+            fi
+            
+            # Fallback
+            log_message "Falling back to hardcoded terminal-file-manager-tui"
+            execute_command "kitty -1 -e fish -c \"yazi\"" "$additional_args"
+            return 0
+            ;;
+        "terminal-text-editor-tui")
+            local terminal_cmd=$(read_program_config "terminal")
+            local text_editor_tui_cmd=$(read_program_config "text-editor-tui")
+            
+            if [[ -n "$terminal_cmd" && -n "$text_editor_tui_cmd" ]]; then
+                local terminal_name=$(echo "$terminal_cmd" | awk '{print $1}')
+                local editor_name=$(echo "$text_editor_tui_cmd" | awk '{print $1}')
+                
+                if program_exists "$terminal_name" && program_exists "$editor_name"; then
+                    local composed_cmd="$terminal_cmd -e fish -c \"$text_editor_tui_cmd\""
+                    execute_command "$composed_cmd" "$additional_args"
+                    return 0
+                fi
+            fi
+            
+            # Fallback
+            log_message "Falling back to hardcoded terminal-text-editor-tui"
+            execute_command "kitty -1 -e fish -c \"nvim\"" "$additional_args"
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
 # Main logic
 if [[ -z "$PROGRAM_TYPE" ]]; then
     log_message "Error: No program type specified"
@@ -37,24 +140,24 @@ if [[ -z "$PROGRAM_TYPE" ]]; then
     exit 1
 fi
 
+# Check if this is a composition type
+if compose_programs "$PROGRAM_TYPE" "$*"; then
+    exit 0
+fi
+
+# Regular program handling
 PROGRAM_CONFIG="$PROGRAMS_DIR/$PROGRAM_TYPE"
 
 # Check if program config file exists
 if [[ -f "$PROGRAM_CONFIG" ]]; then
     # Read the preferred program from config file
-    PREFERRED_PROGRAM=$(cat "$PROGRAM_CONFIG" | head -n1 | xargs)
+    PREFERRED_PROGRAM=$(read_program_config "$PROGRAM_TYPE")
     
     if [[ -n "$PREFERRED_PROGRAM" ]]; then
         # Check if the program exists (extract just the program name for checking)
         PROGRAM_NAME=$(echo "$PREFERRED_PROGRAM" | awk '{print $1}')
         
-        # Handle tilde expansion for paths starting with ~
-        if [[ "$PROGRAM_NAME" == ~* ]]; then
-            PROGRAM_NAME="${PROGRAM_NAME/#\~/$HOME}"
-        fi
-        
-        # Check if program exists
-        if command -v "$PROGRAM_NAME" >/dev/null 2>&1 || [[ -x "$PROGRAM_NAME" ]]; then
+        if program_exists "$PROGRAM_NAME"; then
             execute_command "$PREFERRED_PROGRAM" "$*"
             exit 0
         else
@@ -75,15 +178,21 @@ case "$PROGRAM_TYPE" in
             exec "$FALLBACK_SCRIPT" "kitty -1" "foot" "alacritty" "wezterm" "konsole" "kgx" "uxterm" "xterm"
         fi
         ;;
-    "terminal-zellij")
-        log_message "Falling back to terminal with zellij alternatives"
-        execute_command "kitty -e zsh -c \"zellij\"" "$*"
+    "terminal-multiplexer")
+        log_message "Falling back to terminal with multiplexer alternatives"
+        execute_command "kitty -1 -e fish -c \"zellij\"" "$*"
         exit 0
+        ;;
+    "multiplexer")
+        log_message "Falling back to multiplexer alternatives"
+        if [[ -x "$FALLBACK_SCRIPT" ]]; then
+            exec "$FALLBACK_SCRIPT" "zellij" "tmux" "screen"
+        fi
         ;;
     "file-manager")
         log_message "Falling back to file manager alternatives"
         if [[ -x "$FALLBACK_SCRIPT" ]]; then
-            exec "$FALLBACK_SCRIPT" "nemo" "dolphin" "nautilus" "thunar" "kitty -1 fish -c yazi"
+            exec "$FALLBACK_SCRIPT" "nemo" "dolphin" "nautilus" "thunar"
         fi
         ;;
     "browser")
@@ -95,8 +204,18 @@ case "$PROGRAM_TYPE" in
     "code-editor")
         log_message "Falling back to code editor alternatives"
         if [[ -x "$FALLBACK_SCRIPT" ]]; then
-            exec "$FALLBACK_SCRIPT" "code" "codium" "cursor" "zed" "zedit" "zeditor" "kate" "gnome-text-editor" "emacs" "command -v nvim && kitty -1 nvim"
+            exec "$FALLBACK_SCRIPT" "code" "codium" "cursor" "zed" "zedit" "zeditor" "kate" "gnome-text-editor" "emacs"
         fi
+        ;;
+    "terminal-file-manager-tui")
+        log_message "Falling back to terminal file manager alternatives"
+        execute_command "kitty -1 -e fish -c \"yazi\"" "$*"
+        exit 0
+        ;;
+    "terminal-text-editor-tui")
+        log_message "Falling back to terminal text editor alternatives"
+        execute_command "kitty -1 -e fish -c \"nvim\"" "$*"
+        exit 0
         ;;
     "text-editor")
         log_message "Falling back to text editor alternatives"
@@ -150,7 +269,7 @@ case "$PROGRAM_TYPE" in
         ;;
     *)
         log_message "Error: Unknown program type '$PROGRAM_TYPE'"
-        log_message "Available types: terminal, terminal-zellij, file-manager, browser, code-editor, text-editor, office-suite, volume-mixer, settings-app, task-manager, launcher, clipboard-manager, screenshot-tool, emoji-picker"
+        log_message "Available types: terminal, terminal-multiplexer, multiplexer, file-manager, terminal-file-manager-tui, browser, code-editor, text-editor, terminal-text-editor-tui, file-manager-tui, text-editor-tui, office-suite, volume-mixer, settings-app, task-manager, launcher, clipboard-manager, screenshot-tool, emoji-picker"
         exit 1
         ;;
 esac
