@@ -94,7 +94,9 @@ Performance and feature flags for browsers and applications.
 📖 [**Detailed Apps Documentation →**](apps/README.md)
 
 ### ⚙️ System (`system/`)
-System-wide integration configurations for desktop portals and application sandboxing.
+System-wide integration configurations for desktop portals, boot management, and display managers.
+- **GRUB**: Boot loader configuration with custom theme and kernel parameters
+- **SDDM**: Display manager configuration with custom theme
 - **XDG Desktop Portal**: Desktop integration for sandboxed applications
 - **GoXLR Utility**: Audio interface control and configuration
 - **LACT**: Linux AMDGPU Control Tool for GPU management
@@ -166,9 +168,9 @@ brew install stow
     # Install app configurations
     stow apps
     
-    # Install system configurations
-    stow system
-    ```
+     # Install system configurations (requires sudo for system-level configs)
+     stow system
+     sudo stow system -t /  # For GRUB and SDDM configs    ```
 4. **Or install everything at once:**
    ```bash
    stow */
@@ -304,9 +306,13 @@ dots/
 │       ├── code-flags.conf
 │       └── thorium-flags.conf
 └── system/              # System integration
-    └── .config/
-        ├── xdg-desktop-portal/
-        └── xdg-desktop-portal-kderc
+    ├── .config/
+    │   ├── xdg-desktop-portal/
+    │   └── xdg-desktop-portal-kderc
+    └── etc/
+        ├── default/
+        │   └── grub         # GRUB boot loader configuration
+        └── sddm.conf        # SDDM display manager configuration
 ```
 
 ## 🔄 Management Commands

@@ -1,8 +1,22 @@
 # ⚙️ System Integration Configuration
 
-System-wide integration configurations for desktop portals, application sandboxing, and seamless desktop environment experience.
+System-wide integration configurations for boot management, display managers, desktop portals, application sandboxing, and seamless desktop environment experience.
 
 ## 📦 What's Included
+
+### GRUB Boot Loader (`etc/default/grub`)
+Boot loader configuration with custom theming and kernel parameters:
+- **Custom Theme**: Meowrch theme with custom colors
+- **Kernel Parameters**: Optimized boot parameters including `split_lock_detect=off`
+- **Boot Options**: 5-second timeout with menu display
+- **Graphics**: Auto-detection with payload preservation
+- **Security**: Recovery mode disabled, OS prober disabled
+
+### SDDM Display Manager (`etc/sddm.conf`)
+Display manager configuration for login screen:
+- **Theme**: Custom astronaut theme for modern login experience
+- **Session Management**: Automatic session detection and management
+- **User Experience**: Streamlined login process
 
 ### XDG Desktop Portal (`.config/xdg-desktop-portal/`)
 Desktop integration for sandboxed applications:
@@ -45,6 +59,17 @@ GPU overclocking and monitoring tool:
 
 ## 🚀 Key Features
 
+### Boot Management
+- **Custom GRUB Theme**: Visually appealing boot menu with Meowrch theme
+- **Optimized Boot Parameters**: Kernel parameters for better performance and compatibility
+- **Security Configuration**: Disabled recovery mode and OS probing for enhanced security
+- **Graphics Optimization**: Auto-detection and payload preservation for smooth boot
+
+### Display Manager
+- **Modern Login Theme**: Astronaut theme for aesthetic login experience
+- **Session Management**: Automatic detection and management of desktop sessions
+- **User-Friendly Interface**: Streamlined login process with theme integration
+
 ### Desktop Portal Services
 - **File Access**: Secure file picker for sandboxed applications
 - **Screen Capture**: Screen sharing and recording capabilities
@@ -66,6 +91,42 @@ GPU overclocking and monitoring tool:
 - **Permission Management**: Fine-grained permission control
 
 ## 🔧 Configuration Details
+
+### GRUB Configuration
+```bash
+# /etc/default/grub
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_TIMEOUT_STYLE="menu"
+GRUB_DISTRIBUTOR="Arch"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash split_lock_detect=off"
+GRUB_TERMINAL_INPUT=console
+GRUB_GFXMODE=auto
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_DISABLE_RECOVERY=true
+export GRUB_COLOR_NORMAL="light-gray/black"
+export GRUB_COLOR_HIGHLIGHT="magenta/black"
+GRUB_THEME=/boot/grub/themes/meowrch/theme.txt
+```
+
+### SDDM Configuration
+```ini
+# /etc/sddm.conf
+[Theme]
+    Current=sddm-astronaut-theme
+```
+
+### Installation Commands
+```bash
+# Install system configurations (requires sudo)
+sudo stow system -t /
+
+# Regenerate GRUB configuration after changes
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Restart SDDM after configuration changes
+sudo systemctl restart sddm
+```
 
 ### Hyprland Portal Configuration
 ```ini
@@ -549,9 +610,42 @@ case "$1" in
 esac
 ```
 
+## ⚠️ Important Notes
+
+### System-Level Configurations
+- GRUB and SDDM configurations require root privileges to install
+- Always backup existing configurations before applying changes
+- Test GRUB changes in a safe environment before production use
+- SDDM theme must be installed separately from theme package
+
+### Boot Configuration Safety
+```bash
+# Always backup before making changes
+sudo cp /etc/default/grub /etc/default/grub.backup
+
+# Test GRUB configuration syntax
+sudo grub-mkconfig -o /tmp/grub.cfg.test
+
+# Only apply if test succeeds
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+### Display Manager Management
+```bash
+# Check SDDM status
+sudo systemctl status sddm
+
+# Enable SDDM if not already enabled
+sudo systemctl enable sddm
+
+# Switch display managers (if needed)
+sudo systemctl disable gdm lightdm
+sudo systemctl enable sddm
+```
+
 ## 🔗 Related Modules
 
 - **[WM](../wm/README.md)**: Window manager integration with desktop portals
 - **[Apps](../apps/README.md)**: Application sandboxing and portal usage
-- **[Theme](../theme/README.md)**: System-wide theming through portals
-- **[Security](../security/README.md)**: Security considerations for system integration
+- **[Theme](../theme/README.md)**: System-wide theming through portals and boot themes
+- **[Tools](../tools/README.md)**: System management and monitoring tools

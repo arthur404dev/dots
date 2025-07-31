@@ -26,6 +26,8 @@ fish_vi_key_bindings
 
 set -gx EDITOR nvim
 zoxide init fish | source
+alias cd __zoxide_z
+alias cdi __zoxide_zi
 
 # function fish_prompt
 #   set_color cyan; echo (pwd)

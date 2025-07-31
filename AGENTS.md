@@ -12,6 +12,11 @@ stow */                       # Install all packages
 stow -R package_name          # Reinstall package after changes
 stow -D package_name          # Remove package
 
+# System-level configurations (require sudo)
+sudo stow system -t /        # Install system configs (GRUB, SDDM)
+sudo grub-mkconfig -o /boot/grub/grub.cfg  # Regenerate GRUB config after changes
+sudo systemctl restart sddm  # Restart SDDM after config changes
+
 # Test configurations
 # No automated tests - manual verification required after stowing
 ```
@@ -36,6 +41,7 @@ stow -D package_name          # Remove package
 - Use `.config/` subdirectories for XDG-compliant apps
 - Group related configurations in logical packages
 - Maintain consistent naming: lowercase with hyphens for directories
+- System-level configs in `system/` package mirror `/etc` structure
 
 ### Error Handling
 - Check command success with `|| fallback`
